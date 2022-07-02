@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Actor\File.fs" />
+    <Compile Include="Actor\HelloActor.fs" />
     <Compile Include="WeatherForecast.fs" />
     <Compile Include="Controllers/WeatherForecastController.fs" />
     <Compile Include="Program.fs" />

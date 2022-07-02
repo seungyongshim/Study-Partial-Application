@@ -7,10 +7,11 @@ open System.Threading.Tasks
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 open WebApplication1
+open Proto
 
 [<ApiController>]
 [<Route("[controller]")>]
-type WeatherForecastController (logger : ILogger<WeatherForecastController>) =
+type WeatherForecastController (logger : ILogger<WeatherForecastController>, root : IRootContext) =
     inherit ControllerBase()
 
     let summaries =
@@ -29,6 +30,10 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>) =
 
     [<HttpGet>]
     member this.Get() = task {
+
+        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), "hello")
+        logger.LogInformation("{response}", res)
+
         let rng = System.Random()
 
         return [|
