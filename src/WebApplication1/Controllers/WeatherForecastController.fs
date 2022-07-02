@@ -30,8 +30,9 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>, roo
         |]
 
     [<HttpGet>]
-    member this.Get() = task {
-        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), Bomb)
+    member this.Get() = async {
+        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), Bomb) |> Async.AwaitTask
+
         logger.LogInformation("{response}", res)
 
         let rng = System.Random()
@@ -42,4 +43,4 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>, roo
                   TemperatureC = rng.Next(-20,55)
                   Summary = summaries.[rng.Next(summaries.Length)] }
         |]
-    }
+    } 

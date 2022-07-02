@@ -4,17 +4,14 @@ open WebApplication1.Domain
 open FSharp.Core
 open Proto
 
-type HelloActor() = 
+type HelloActor() =
     interface IActor with
-        member this.ReceiveAsync(ctx) = task {
+        member _.ReceiveAsync(ctx) = task {
             match ctx.Message with
             | :? string as m ->
                 printfn($"{m}")
                 ctx.Respond("world")
-            | :? Cell as m ->
-                match m with
-                | Bomb -> ctx.Respond("*")
-                | _ -> ctx.Respond("?")
+            | :? Cell as Bomb -> ctx.Respond("*")
             | _ -> ()
         }
         

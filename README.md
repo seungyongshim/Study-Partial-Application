@@ -20,5 +20,7 @@
 * https://blog.ploeh.dk/2017/07/24/combining-free-monads-in-haskell/
 * https://blog.ploeh.dk/2017/07/31/combining-free-monads-in-f/
 * https://blog.ploeh.dk/2017/08/07/f-free-monad-recipe/
-
 * https://blog.ploeh.dk/2022/03/21/contravariant-dependency-injection/
+
+## Flexible types for dependency injection for F#
+* https://gfritz.github.io/posts/2020-12-05-fsadvent-2020-dependency-injection-using-flexible-types-and-type-inference.html
