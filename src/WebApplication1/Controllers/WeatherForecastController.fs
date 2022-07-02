@@ -8,6 +8,7 @@ open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 open WebApplication1
 open Proto
+open WebApplication1.Domain
 
 [<ApiController>]
 [<Route("[controller]")>]
@@ -30,8 +31,7 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>, roo
 
     [<HttpGet>]
     member this.Get() = task {
-
-        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), "hello")
+        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), Bomb)
         logger.LogInformation("{response}", res)
 
         let rng = System.Random()
