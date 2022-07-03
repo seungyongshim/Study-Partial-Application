@@ -11,7 +11,7 @@ type HelloActor() =
             | :? string as m ->
                 printfn($"{m}")
                 ctx.Respond("world")
-            | :? Cell as Bomb -> ctx.Respond("*")
-            | _ -> ()
+            | :? Cell as Number x -> ctx.Respond($"{x}")
+            | _ -> ctx.Respond("?")
         }
         

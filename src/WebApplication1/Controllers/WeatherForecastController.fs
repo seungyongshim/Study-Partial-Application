@@ -31,7 +31,7 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>, roo
 
     [<HttpGet>]
     member this.Get() = async {
-        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), Bomb) |> Async.AwaitTask
+        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), 1 |> Number) |> Async.AwaitTask
 
         logger.LogInformation("{response}", res)
 
