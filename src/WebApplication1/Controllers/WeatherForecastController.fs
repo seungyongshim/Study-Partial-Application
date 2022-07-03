@@ -9,6 +9,7 @@ open Microsoft.Extensions.Logging
 open WebApplication1
 open Proto
 open WebApplication1.Domain
+open System.Threading
 
 [<ApiController>]
 [<Route("[controller]")>]
@@ -30,17 +31,18 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>, roo
         |]
 
     [<HttpGet>]
-    member this.Get() = async {
-        let! res = root.RequestAsync<string>(PID("nonhost", "hello"), 1 |> Number) |> Async.AwaitTask
+    member _.Get(ct: CancellationToken) =
+        async {
+            let! res = root.RequestAsync<string>(PID("nonhost", "hello"), 1 |> Number) |> Async.AwaitTask
 
-        logger.LogInformation("{response}", res)
+            logger.LogInformation("{response}", res)
 
-        let rng = System.Random()
+            let rng = System.Random()
 
-        return [|
-            for index in 0..4 ->
-                { Date = DateTime.Now.AddDays(float index)
-                  TemperatureC = rng.Next(-20,55)
-                  Summary = summaries.[rng.Next(summaries.Length)] }
-        |]
-    } 
+            return [|
+                for index in 0..4 -> {
+                    Date = DateTime.Now.AddDays(float index)
+                    TemperatureC = rng.Next(-20,55)
+                    Summary = summaries.[rng.Next(summaries.Length)] }
+            |]
+        } |> fun x -> Async.StartAsTask(x, TaskCreationOptions.None, ct)

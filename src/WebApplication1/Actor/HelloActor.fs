@@ -13,5 +13,4 @@ type HelloActor() =
                 ctx.Respond("world")
             | :? Cell as Number x -> ctx.Respond($"{x}")
             | _ -> ctx.Respond("?")
-        }
-        
+        } 
